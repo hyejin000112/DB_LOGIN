@@ -1,19 +1,24 @@
 "use strict";
 
   const id = document.querySelector("#id"),
+        name = document.querySelector('#name'),
         psword = document.querySelector("#psword"),
-        loginBtn = document.querySelector("#button");
+        confirmPsword = document.querySelector("#confirm-psword"),
+        registerBtn = document.querySelector("#button");
 
+// console.log('hello register');
+registerBtn.addEventListener('click',register);
 
-loginBtn.addEventListener('click',login);
-
-function login(){
+function register(){
     const req ={
         id : id.value,
+        name:name.value,
         psword:psword.value,
+        confirmPsword : confirmPsword.value,
     };
+    console.log(req);
 
-    fetch('/login',{
+    fetch('/register',{
         method:"POST", //POST방식으로 데이터 전달.
         headers:{
             "Content-Type" : "application/json" //보내는 데이터타입이 JSON이라는걸 의미
@@ -23,12 +28,11 @@ function login(){
     .then((res)=> res.json())
     .then((res)=> {
         if(res.success){
-            alert ('짠');
-            location.href = '/';
+            location.href = '/login';
         }else{
             alert(res.msg);
         }
     }).catch((err)=>{
-        console.error(('로그인 중 에러 발생'))
+        console.error(('회원가입 중 에러 발생'))
     })
 }
